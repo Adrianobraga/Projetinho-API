@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import Api from '../API/Api'
+import Header from "../Header/Header"
 function App() {
-  let [nome,setNome] = useState(null);
+  let [nome,setNome] = useState("");
   return (
     <>
-    <input type="text" className="border border-current rounded-2xl" onKeyUp={(e) => setNome(e.target.value)}/>
+    <Header name ={setNome}/>
     <Api name={nome} />
     </>
   )
