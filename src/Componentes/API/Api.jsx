@@ -9,6 +9,9 @@ function Api({ name,setPessoa }) {
           return resposta.json().then((json) => {
             if (json.results[0].name == name) {
               setPessoa(json.results[0]);
+              setTimeout(() =>{
+                setPessoa({})
+              },500)
             }
           });
         }
