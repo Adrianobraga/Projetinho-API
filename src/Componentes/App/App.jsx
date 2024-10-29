@@ -12,19 +12,24 @@ function App() {
       const id = Math.floor(Math.random() * 1000);
       return [...prevState, { ...pessoa, created: id }];
     });
-  };
-  const removeLista = (id) =>{
-    const newLista = [...corpo]
-    const filteredLista = newLista.filter((corpo) => corpo.created !== id? corpo: null
-    )
-    setCorpo(filteredLista)
   }
+  const removeLista = (id) => {
+    const newLista = [...corpo];
+    const filteredLista = newLista.filter((corpo) =>
+      corpo.created !== id ? corpo : null
+    );
+    setCorpo(filteredLista);
+  };
   return (
     <>
-      <Header name={setNome} pessoa={pessoa} setCorpo={setCorpo} adicionarElemento={adicionarElemento}/>
+      <Header
+        name={setNome}
+        pessoa={pessoa}
+        setCorpo={setCorpo}
+        adicionarElemento={adicionarElemento}
+      />
       <Api name={nome} setPessoa={setPessoa} />
-      <Content corpo={corpo} removeLista={removeLista}/>
-      
+      <Content corpo={corpo} removeLista={removeLista} />
     </>
   );
 }
