@@ -8,7 +8,7 @@ function Header({ name,pessoa,adicionarElemento }) {
     
     <>
       <form onSubmit={handleSubmit}>
-       <input type="text" className="border border-current rounded-2xl" onKeyUp={(e) => name(e.target.value)} required/>
+       <input type="text" className="border border-current rounded-2xl" onChange={(e) => name(e.target.value)} required/>
        <button type="submit" className="border-solid border-2 bg-gray-300">Enviar</button>
        </form>
     </>
