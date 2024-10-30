@@ -6,12 +6,14 @@ function App() {
   let [nome, setNome] = useState("");
   let [corpo, setCorpo] = useState([]);
   let [escolha, setEscolha] = useState("");
-  const [pessoa, setPessoa] = useState({});
+  let [botao, setBotao] = useState("");
+  let [pessoa, setPessoa] = useState({});
+  let [fixo,setFixo] = useState("")
   function adicionarElemento(novoElemento) {
     const id = Math.floor(Math.random() * 1000);
     setCorpo((prevState) => {
       const id = Math.floor(Math.random() * 1000);
-      return [...prevState, { ...pessoa, created: id ,edited: escolha}];
+      return [...prevState, { ...pessoa, created: id, edited: escolha }];
     });
   }
   const removeLista = (id) => {
@@ -29,9 +31,24 @@ function App() {
         setCorpo={setCorpo}
         adicionarElemento={adicionarElemento}
         setEscolha={setEscolha}
+        setBotao={setBotao}
+        nome={nome}
+        setFixo={setFixo}
       />
-      <Api name={nome} setPessoa={setPessoa} escolha={escolha} />
-      <Content corpo={corpo} removeLista={removeLista} setNome={setNome} escolha={escolha}/>
+      <Api
+        fixo={fixo}
+        setFixo={setFixo}
+
+        setPessoa={setPessoa}
+        escolha={escolha}
+        setNome={setNome}
+        botao={botao}
+      />
+      <Content
+        corpo={corpo}
+        removeLista={removeLista}
+        setNome={setNome}
+      />
     </>
   );
 }
