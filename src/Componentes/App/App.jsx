@@ -8,7 +8,6 @@ function App() {
   let [escolha, setEscolha] = useState("");
   let [botao, setBotao] = useState("");
   let [pessoa, setPessoa] = useState({});
-  let [fixo,setFixo] = useState("")
   function adicionarElemento(novoElemento) {
     const id = Math.floor(Math.random() * 1000);
     setCorpo((prevState) => {
@@ -33,12 +32,9 @@ function App() {
         setEscolha={setEscolha}
         setBotao={setBotao}
         nome={nome}
-        setFixo={setFixo}
       />
       <Api
-        fixo={fixo}
-        setFixo={setFixo}
-
+        name={nome}
         setPessoa={setPessoa}
         escolha={escolha}
         setNome={setNome}

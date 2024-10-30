@@ -1,16 +1,14 @@
 import alertify from "alertifyjs";
-function Header({ name, pessoa, adicionarElemento, setEscolha,setFixo,nome}) {
+function Header({ name, pessoa, adicionarElemento, setEscolha,}) {
   const handleSubmit = (e) => {
     if (pessoa.name) {
-      adicionarElemento(pessoa);
       e.preventDefault();
       e.target.reset();
-      setFixo(nome);
+      adicionarElemento(pessoa);
     } else {
       e.preventDefault();
       e.target.reset();
       alertify.error("404 Error");
-      setFixo(nome);
     }
   };
 
