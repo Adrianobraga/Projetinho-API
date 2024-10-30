@@ -1,8 +1,6 @@
-import { useState } from "react";
-
-function Api({ name,setPessoa }) {
+function Api({ name,setPessoa,escolha}) {
   const busca = (name) => {
-    fetch(`https://swapi.dev/api/people/?search=${name}`)
+    fetch(`https://swapi.dev/api/${(escolha == "Personagem")?"people":(escolha == "Planeta")?"planets":(escolha == "naves estelares")?"starships":"Falhou"}/?search=${name}`)
       .then((resposta) => {
         let contentType = resposta.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -11,7 +9,7 @@ function Api({ name,setPessoa }) {
               setPessoa(json.results[0]);
               setTimeout(() =>{
                 setPessoa({})
-              },500)
+              },3000)
             }
           });
         }
@@ -19,6 +17,7 @@ function Api({ name,setPessoa }) {
       .catch((error) => {
         console.error("Erro na requisição" + error);
       });
+
   };
  return (busca(name));
 }
