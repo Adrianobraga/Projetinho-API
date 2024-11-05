@@ -1,16 +1,5 @@
-import alertify from "alertifyjs";
-function Header({ name, pessoa, adicionarElemento, setEscolha,}) {
-  const handleSubmit = (e) => {
-    if (pessoa.name) {
-      e.preventDefault();
-      e.target.reset();
-      adicionarElemento(pessoa);
-    } else {
-      e.preventDefault();
-      e.target.reset();
-      alertify.error("404 Error");
-    }
-  };
+import { useRef } from "react";
+function Header({ input, setEscolha,handleSubmit,setNome}) {
 
   return (
     <>
@@ -19,7 +8,7 @@ function Header({ name, pessoa, adicionarElemento, setEscolha,}) {
           <input
             type="text"
             className="border border-current "
-            onKeyUp={(e) => name(e.target.value)}
+            ref={input}
             required
           />
           <select
