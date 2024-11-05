@@ -1,50 +1,77 @@
-import { useState } from "react";
-import Api from "../API/Api";
+import { useState, useRef } from "react";
 import Header from "../Header/Header";
 import Content from "../Content/Content";
+import alertify from "alertifyjs";
+
 function App() {
-  let [nome, setNome] = useState("");
-  let [corpo, setCorpo] = useState([]);
-  let [escolha, setEscolha] = useState("");
-  let [botao, setBotao] = useState("");
-  let [pessoa, setPessoa] = useState({});
+  const input = useRef(""); 
+  const [corpo, setCorpo] = useState([]); 
+  const [escolha, setEscolha] = useState("");
+  const [pessoa, setPessoa] = useState(null); 
+
+  const busca = async (name) => {
+    const resposta = await fetch(
+      `https://swapi.dev/api/${
+        escolha === "Personagem"
+          ? "people"
+          : escolha === "Planeta"
+          ? "planets"
+          : escolha === "naves estelares"
+          ? "starships"
+          : "falhou"
+      }/?search=${name}`
+    );
+
+    const json = await resposta.json();
+
+    if (json.results && json.results[0]?.name === name) {
+      return json.results[0]; 
+    }
+
+    return null; 
+  };
+
+  
   function adicionarElemento(novoElemento) {
     const id = Math.floor(Math.random() * 1000);
-    setCorpo((prevState) => {
-      const id = Math.floor(Math.random() * 1000);
-      return [...prevState, { ...pessoa, created: id, edited: escolha }];
-    });
+    setCorpo((prevState) => [
+      ...prevState,
+      { ...novoElemento, created: id, edited: escolha },
+    ]);
   }
+
+  
   const removeLista = (id) => {
-    const newLista = [...corpo];
-    const filteredLista = newLista.filter((corpo) =>
-      corpo.created !== id ? corpo : null
-    );
-    setCorpo(filteredLista);
+    setCorpo((prevState) => prevState.filter((item) => item.created !== id));
   };
+
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    const fixo = input.current.value; 
+
+    
+    const resultado = await busca(fixo);
+
+    if (resultado) {
+      setPessoa(resultado);
+      adicionarElemento(resultado);
+      alertify.success("Item adicionado com sucesso!");
+    } else {
+      alertify.error("404 Error: Item não encontrado");
+    }
+
+    e.target.reset();
+  };
+
   return (
     <>
       <Header
-        name={setNome}
-        pessoa={pessoa}
-        setCorpo={setCorpo}
-        adicionarElemento={adicionarElemento}
+        input={input}
         setEscolha={setEscolha}
-        setBotao={setBotao}
-        nome={nome}
+        handleSubmit={handleSubmit}
       />
-      <Api
-        name={nome}
-        setPessoa={setPessoa}
-        escolha={escolha}
-        setNome={setNome}
-        botao={botao}
-      />
-      <Content
-        corpo={corpo}
-        removeLista={removeLista}
-        setNome={setNome}
-      />
+      <Content corpo={corpo} removeLista={removeLista} />
     </>
   );
 }
