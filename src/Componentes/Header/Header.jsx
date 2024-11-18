@@ -1,6 +1,8 @@
-import { useRef } from "react";
-function Header({ input, setEscolha,handleSubmit,setNome}) {
+import { useContext, useRef } from "react";
+import { Context } from "../Context/Context";
 
+function Header() {
+  const {input,setEscolha,handleSubmit,setNome} = useContext(Context)
   return (
     <>
       <div className="flex justify-center bg-slate-200 h-40 py-16">

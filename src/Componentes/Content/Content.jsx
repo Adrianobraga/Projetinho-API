@@ -1,4 +1,8 @@
-function Content({ corpo, removeLista }) {
+import { useContext } from "react";
+import { Context } from "../Context/Context";
+
+function Content() {
+  const {corpo,removeLista} =useContext(Context)
   return (
     <>
       {corpo.map((sobre) => {
